@@ -62,15 +62,6 @@
     <div class="contact-container">
         <h1>Contact Us</h1>
         
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-        
         <form method="POST">
             {% csrf_token %}
             
@@ -91,10 +82,10 @@
             </div>
             
             <div class="form-group">
-                <label for="subject">Subject</label>
-                {{ form.subject }}
-                {% if form.subject.errors %}
-                    <small class="text-danger">{{ form.subject.errors }}</small>
+                <label for="number">Phone Number</label>
+                {{ form.number }}
+                {% if form.number.errors %}
+                    <small class="text-danger">{{ form.number.errors }}</small>
                 {% endif %}
             </div>
             
@@ -106,7 +97,7 @@
                 {% endif %}
             </div>
             
-            <button type="submit" class="btn-submit">Send Email</button>
+            <button type="submit" class="btn-submit">Submit</button>
         </form>
         
         <div class="home-link">

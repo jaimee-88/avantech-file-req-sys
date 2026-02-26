@@ -14,11 +14,11 @@ class ContactForm(forms.Form):
             'placeholder': 'Your Email'
         })
     )
-    subject = forms.CharField(
-        max_length=200,
+    number = forms.CharField(
+        max_length=20,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Subject'
+            'placeholder': 'Your Phone Number'
         })
     )
     message = forms.CharField(
