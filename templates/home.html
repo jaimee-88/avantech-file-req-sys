@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Django</title>
+    <title>AvanTech - Integrated Technology Solutions</title>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Global font settings */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
         /* Hide scrollbar */
         html::-webkit-scrollbar {
             display: none;
@@ -19,11 +27,11 @@
             border: 1px solid #ddd;
         }
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #7cb342;
+            box-shadow: 0 0 0 0.2rem rgba(124, 179, 66, 0.25);
         }
         .btn-submit {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c5f6f 0%, #7cb342 100%);
             border: none;
             width: 100%;
             padding: 10px;
@@ -35,15 +43,87 @@
         }
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(124, 179, 66, 0.4);
+        }
+        .navbar {
+            background: white !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            color: #2c5f6f !important;
+            letter-spacing: -0.5px;
+        }
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .nav-link {
+            color: #2c5f6f !important;
+            font-weight: 500;
+        }
+        .nav-link:hover,
+        .nav-link.active {
+            color: #7cb342 !important;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(124, 179, 66, 0.2);
+        }
+        .section-heading {
+            font-family: 'Exo 2', sans-serif;
+            color: #2c5f6f;
+            font-weight: 800;
+        }
+        h1, h2 {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+        }
+        .lead {
+            font-family: 'Roboto', sans-serif;
+            font-style: italic;
+        }
+        .upload-box {
+            border: 3px dashed #7cb342;
+            border-radius: 10px;
+            padding: 60px 20px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .upload-box:hover {
+            background: #e8f5e9;
+            border-color: #5a9f5f;
+        }
+        .upload-icon {
+            font-size: 4rem;
+            color: #7cb342;
+            margin-bottom: 20px;
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            display: none;
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">MyApp</a>
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'images/avantech-logo.png' %}" alt="AvanTech Logo">
+                AvanTech
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,13 +133,16 @@
                         <a class="nav-link active" aria-current="page" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                        <a class="nav-link" href="#upload">Upload Files</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
+                        <a class="nav-link" href="#features">Features</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="#request">Request Files</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#support">Support</a>
                     </li>
                 </ul>
             </div>
@@ -68,7 +151,7 @@
 
     <!-- Hero Carousel Section -->
     <section id="home">
-        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 100vh;">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" style="height: 100vh;">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -77,37 +160,37 @@
             
             <div class="carousel-inner" style="height: 100%;">
                 <!-- Slide 1 -->
-                <div class="carousel-item active" style="height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="carousel-item active" style="height: 100%; background: linear-gradient(135deg, #1a4d5e 0%, #2c5f6f 100%);">
                     <div class="d-flex align-items-center justify-content-center h-100">
                         <div class="text-center text-white">
-                            <h1 class="display-3 fw-bold mb-4">Welcome to MyApp</h1>
-                            <p class="lead mb-4">Build amazing things with our platform</p>
-                            <a href="#about" class="btn btn-light btn-lg me-2">Learn More</a>
-                            <a href="#contact" class="btn btn-outline-light btn-lg">Get Started</a>
+                            <h1 class="display-3 fw-bold mb-4">Secure File Transfer</h1>
+                            <p class="lead mb-4">Upload and request files with enterprise-grade security</p>
+                            <a href="#upload" class="btn btn-light btn-lg me-2">Upload Files</a>
+                            <a href="#request" class="btn btn-outline-light btn-lg">Request Files</a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Slide 2 -->
-                <div class="carousel-item" style="height: 100%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="carousel-item" style="height: 100%; background: linear-gradient(135deg, #2c5f6f 0%, #3a7f93 100%);">
                     <div class="d-flex align-items-center justify-content-center h-100">
                         <div class="text-center text-white">
-                            <h2 class="display-3 fw-bold mb-4">Innovative Solutions</h2>
-                            <p class="lead mb-4">Transform your business with cutting-edge technology</p>
-                            <a href="#services" class="btn btn-light btn-lg me-2">Explore Services</a>
-                            <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+                            <h2 class="display-3 fw-bold mb-4">Fast & Reliable</h2>
+                            <p class="lead mb-4">Share large files instantly with anyone, anywhere</p>
+                            <a href="#features" class="btn btn-light btn-lg me-2">Learn More</a>
+                            <a href="#upload" class="btn btn-outline-light btn-lg">Get Started</a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Slide 3 -->
-                <div class="carousel-item" style="height: 100%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="carousel-item" style="height: 100%; background: linear-gradient(135deg, #3a7f93 0%, #5a9f5f 100%);">
                     <div class="d-flex align-items-center justify-content-center h-100">
                         <div class="text-center text-white">
-                            <h2 class="display-3 fw-bold mb-4">Expert Support</h2>
-                            <p class="lead mb-4">24/7 dedicated support for your success</p>
-                            <a href="#about" class="btn btn-light btn-lg me-2">Learn More</a>
-                            <a href="#contact" class="btn btn-outline-light btn-lg">Get in Touch</a>
+                            <h2 class="display-3 fw-bold mb-4">Enterprise Security</h2>
+                            <p class="lead mb-4">End-to-end encryption for all your file transfers</p>
+                            <a href="#features" class="btn btn-light btn-lg me-2">View Features</a>
+                            <a href="#support" class="btn btn-outline-light btn-lg">Contact Support</a>
                         </div>
                     </div>
                 </div>
@@ -124,40 +207,54 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-5 bg-light">
+    <!-- Upload Section -->
+    <section id="upload" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4">About Us</h2>
-            <p class="text-center lead">Discover what makes us unique and why businesses choose us.</p>
+            <h2 class="text-center mb-4 section-heading">Upload Your Files</h2>
+            <p class="text-center lead mb-5">Drag and drop files or click to browse. Support for all file types up to 5GB.</p>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="upload-box">
+                        <div class="upload-icon">📁</div>
+                        <h4 style="color: #2c5f6f;">Drop files here to upload</h4>
+                        <p class="text-muted">or click to browse</p>
+                        <input type="file" class="form-control mt-3" multiple style="display: none;" id="fileInput">
+                        <button class="btn btn-lg mt-3" style="background: linear-gradient(135deg, #2c5f6f 0%, #7cb342 100%); color: white; border: none;" onclick="document.getElementById('fileInput').click()">Select Files</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-5">
+    <!-- Features Section -->
+    <section id="features" class="py-5 bg-light">
         <div class="container">
-            <h2 class="text-center mb-4">Our Services</h2>
+            <h2 class="text-center mb-4 section-heading">Why Choose AvanTech File Transfer</h2>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Service One</h5>
-                            <p class="card-text">High-quality service tailored to your needs.</p>
+                            <div style="font-size: 3rem; color: #2c5f6f;">🔒</div>
+                            <h5 class="card-title mt-3" style="color: #2c5f6f;">Secure Transfer</h5>
+                            <p class="card-text">End-to-end encryption ensures your files are protected during transfer and storage.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Service Two</h5>
-                            <p class="card-text">Expert support and guidance every step of the way.</p>
+                            <div style="font-size: 3rem; color: #2c5f6f;">⚡</div>
+                            <h5 class="card-title mt-3" style="color: #2c5f6f;">Lightning Fast</h5>
+                            <p class="card-text">High-speed servers and optimized infrastructure for rapid file transfers of any size.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100">
                         <div class="card-body text-center">
-                            <h5 class="card-title">Service Three</h5>
-                            <p class="card-text">Innovative solutions for modern challenges.</p>
+                            <div style="font-size: 3rem; color: #2c5f6f;">📊</div>
+                            <h5 class="card-title mt-3" style="color: #2c5f6f;">Track & Manage</h5>
+                            <p class="card-text">Monitor file transfers, set expiration dates, and manage access permissions easily.</p>
                         </div>
                     </div>
                 </div>
@@ -165,17 +262,18 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-5 bg-light">
+    <!-- Request Files Section -->
+    <section id="request" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4">Get In Touch</h2>
+            <h2 class="text-center mb-4 section-heading">Request Files</h2>
+            <p class="text-center lead mb-5">Need files from someone? Send them a secure request link.</p>
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <form method="POST">
                         {% csrf_token %}
                         
                         <div class="mb-3">
-                            <label for="name">Name</label>
+                            <label for="name" class="form-label">Your Name</label>
                             {{ form.name }}
                             {% if form.name.errors %}
                                 <small class="text-danger">{{ form.name.errors }}</small>
@@ -183,7 +281,7 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label for="email">Email</label>
+                            <label for="email" class="form-label">Your Email</label>
                             {{ form.email }}
                             {% if form.email.errors %}
                                 <small class="text-danger">{{ form.email.errors }}</small>
@@ -191,7 +289,7 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label for="number">Phone Number</label>
+                            <label for="number" class="form-label">Recipient Email</label>
                             {{ form.number }}
                             {% if form.number.errors %}
                                 <small class="text-danger">{{ form.number.errors }}</small>
@@ -199,20 +297,70 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label for="message">Message</label>
+                            <label for="message" class="form-label">Request Message</label>
                             {{ form.message }}
                             {% if form.message.errors %}
                                 <small class="text-danger">{{ form.message.errors }}</small>
                             {% endif %}
                         </div>
                         
-                        <button type="submit" class="btn-submit">Submit</button>
+                        <button type="submit" class="btn-submit">Send File Request</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Support Section -->
+    <section id="support" class="py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="mb-4 section-heading">Need Help?</h2>
+            <p class="lead mb-4">Our support team is available 24/7 to assist you with any questions or issues.</p>
+            <a href="mailto:support@avantech.com" class="btn btn-lg" style="background: linear-gradient(135deg, #2c5f6f 0%, #7cb342 100%); color: white; border: none;">Contact Support</a>
+        </div>
+    </section>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Drag and drop functionality
+        const uploadBox = document.querySelector('.upload-box');
+        const fileInput = document.getElementById('fileInput');
+        
+        uploadBox.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        uploadBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBox.style.borderColor = '#5a9f5f';
+            uploadBox.style.background = '#e8f5e9';
+        });
+        
+        uploadBox.addEventListener('dragleave', () => {
+            uploadBox.style.borderColor = '#7cb342';
+            uploadBox.style.background = '#f8f9fa';
+        });
+        
+        uploadBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBox.style.borderColor = '#7cb342';
+            uploadBox.style.background = '#f8f9fa';
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFiles(files);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+        
+        function handleFiles(files) {
+            const fileList = Array.from(files).map(f => f.name).join(', ');
+            alert(`Files selected: ${fileList}\n\nNote: This is a demo. In production, files would be uploaded to the server.`);
+        }
+    </script>
 </body>
 </html>
